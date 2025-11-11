@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.training.some_social_network.dao.mappers.UserMapper">
+
+    <resultMap id="UserResultMap" type="User">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+        <result column="second_name" property="secondName" jdbcType="VARCHAR"/>
+        <result column="birth_date" property="birthdate" jdbcType="DATE"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="biography" property="biography" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="userColumns">
+        uuid,
+        first_name,
+        second_name,
+        birth_date,
+        gender,
+        biography,
+        city,
+        password
+    </sql>
+
+    <select id="getUserByUuid" parameterType="String" resultMap="UserResultMap">
+        SELECT id, <include refid="userColumns"/>
+        FROM users
+        WHERE uuid = #{uuid}
+    </select>
+
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO users (<include refid="userColumns"/>)
+        VALUES (#{uuid},#{firstName},#{secondName},#{birthdate},#{gender},#{biography},#{city},#{password})
+    </insert>
+
+</mapper>
