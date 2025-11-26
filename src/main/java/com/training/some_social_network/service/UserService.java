@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,5 +43,16 @@ public class UserService {
         NotFoundException.throwIf(user == null, "Анкета не найдена");
 
         return new UserDto(user);
+    }
+
+    public List<UserDto> searchUsers(String firstName, String secondName) {
+        NotValidDataException.throwIf(firstName == null, "Невалидные данные");
+        NotValidDataException.throwIf(secondName == null, "Невалидные данные");
+
+        List<UserDo> users = userMapper.searchUsers(firstName, secondName);
+
+        return users.stream()
+                .map(UserDto::new)
+                .toList();
     }
 }

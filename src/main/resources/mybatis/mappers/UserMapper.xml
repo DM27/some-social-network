@@ -36,4 +36,12 @@
         VALUES (#{uuid},#{firstName},#{secondName},#{birthdate},#{gender},#{biography},#{city},#{password})
     </insert>
 
+    <select id="searchUsers" parameterType="String" resultMap="UserResultMap">
+        SELECT id, <include refid="userColumns"/>
+        FROM users
+        WHERE first_name LIKE #{firstName} || '%' AND
+            second_name LIKE #{secondName} || '%'
+        ORDER by id
+    </select>
+
 </mapper>

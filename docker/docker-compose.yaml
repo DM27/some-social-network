@@ -4,6 +4,7 @@ services:
     build:
       context: ../
       dockerfile: ./docker/Dockerfile
+    image: some-social-app:0.0.2
     restart: unless-stopped
     ports:
       - "8080:8080"
