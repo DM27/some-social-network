@@ -10,4 +10,3 @@ WORKDIR /app
 EXPOSE 8080
 COPY --from=maven_builder /app/target/application.jar ./
 ENTRYPOINT ["java", "-jar", "application.jar"]
-#ENTRYPOINT ["tail", "-f", "/dev/null"]

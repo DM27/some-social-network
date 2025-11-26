@@ -6,6 +6,8 @@ import com.training.some_social_network.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
@@ -33,6 +35,19 @@ public class UserController {
     @GetMapping("/get/{id}")
     public UserDto getUserById(@PathVariable String id) {
         return userService.obtainUserByUuid(id);
+    }
+
+    /**
+     * Search for users by parts of their first and last names
+     *
+     * @param firstName     part of the first name to search for
+     * @param secondName    part of the second name to search for
+     * @return a list of users
+     */
+    @GetMapping("/search")
+    public List<UserDto> searchUsers(@RequestParam("first_name") String firstName,
+                                     @RequestParam("last_name") String secondName) {
+        return userService.searchUsers(firstName, secondName);
     }
 
     /**

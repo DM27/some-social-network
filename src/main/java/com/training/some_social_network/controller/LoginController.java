@@ -20,7 +20,6 @@ public class LoginController {
 
     /**
      * Simplified authentication process by passing a user ID and receiving a token for further authorization
-     * Registration is nominal, without Security, and is not verified anywhere
      *
      * @param userDto user data
      * @return token

@@ -9,4 +9,10 @@
                  path="20251110_init_user_tables.sql"/>
     </changeSet>
 
+    <changeSet author="meldim" id="20251126_create_user_name_index">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20251126_create_user_name_index.sql"/>
+    </changeSet>
+
 </databaseChangeLog>

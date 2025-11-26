@@ -14,6 +14,7 @@ Specification : https://github.com/OtusTeam/highload/blob/master/homework/openap
 - /login 
 - /user/register
 - /user/get/{id}
+- /user/search
  
 ## List of dependencies
 - Spring WEB
