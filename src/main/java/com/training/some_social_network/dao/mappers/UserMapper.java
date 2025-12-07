@@ -16,4 +16,11 @@ public interface UserMapper {
 
     List<UserDo> searchUsers(@Param("firstName") String firstName,
                              @Param("secondName") String secondName);
+
+    void addFriend(@Param("userId") UUID userId,
+                   @Param("friendId") UUID friendId);
+
+    void deleteFriend(@Param("friendId") UUID friendId);
+
+    List<UUID> findFriends(@Param("userId") UUID userId);
 }

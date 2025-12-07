@@ -15,6 +15,12 @@ Specification : https://github.com/OtusTeam/highload/blob/master/homework/openap
 - /user/register
 - /user/get/{id}
 - /user/search
+- /friend/add 
+- /friend/delete
+- /post/create
+- /post/update
+- /post/delete
+- /post/get
  
 ## List of dependencies
 - Spring WEB
@@ -22,4 +28,6 @@ Specification : https://github.com/OtusTeam/highload/blob/master/homework/openap
 - Mybatis
 - Liquibase
 - PostgreSQL
+- Redis
+- RabbitMQ
 - Lombok

@@ -5,12 +5,14 @@ import com.training.some_social_network.dao.mappers.UserMapper;
 import com.training.some_social_network.dto.UserDto;
 import com.training.some_social_network.exceptions.NotFoundException;
 import com.training.some_social_network.exceptions.NotValidDataException;
+import com.training.some_social_network.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -54,5 +56,19 @@ public class UserService {
         return users.stream()
                 .map(UserDto::new)
                 .toList();
+    }
+
+    public void addFriend(String friendId) {
+        NotValidDataException.throwIf(friendId == null, "Невалидные данные");
+
+        Optional<UUID> userId = SecurityHelper.getCurrentUserId();
+        NotValidDataException.throwIf(userId.isEmpty(), "Невалидные данные");
+
+        userMapper.addFriend(userId.get(), UUID.fromString(friendId));
+    }
+
+    public void deleteFriend(String friendId) {
+        NotValidDataException.throwIf(friendId == null, "Невалидные данные");
+        userMapper.deleteFriend(UUID.fromString(friendId));
     }
 }
