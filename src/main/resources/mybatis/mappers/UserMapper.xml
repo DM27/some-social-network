@@ -43,4 +43,20 @@
         ORDER by id
     </select>
 
+    <insert id="addFriend">
+        INSERT INTO friends (user_id, friend_id)
+        VALUES (#{userId,typeHandler=UUIDTypeHandler}::uuid, #{friendId,typeHandler=UUIDTypeHandler}::uuid)
+        ON CONFLICT DO NOTHING;
+    </insert>
+
+    <delete id="deleteFriend">
+        DELETE FROM friends WHERE friend_id = #{friendId,typeHandler=UUIDTypeHandler}::uuid;
+    </delete>
+
+    <select id="findFriends" resultType="java.util.UUID">
+        SELECT friend_id
+        FROM friends
+        WHERE user_id = #{userId,typeHandler=UUIDTypeHandler}::uuid
+    </select>
+
 </mapper>

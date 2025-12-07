@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.training.some_social_network.dao.mappers.PostMapper">
+
+    <resultMap id="PostResultMap" type="Post">
+        <id column="id" property="id" jdbcType="OTHER" typeHandler="UUIDTypeHandler"/>
+        <result column="text" property="text" jdbcType="VARCHAR"/>
+        <result column="author_user_id" property="authorUserId" jdbcType="OTHER" typeHandler="UUIDTypeHandler"/>
+    </resultMap>
+
+    <insert id="insertPost" parameterType="Post" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO posts (text, author_user_id)
+        VALUES (#{text},#{authorUserId,typeHandler=UUIDTypeHandler}::uuid)
+        RETURNING id;
+    </insert>
+
+    <update id="updatePost" parameterType="Post">
+        UPDATE posts
+        SET text = #{text},
+            updated_at = now()
+        WHERE id = #{id,typeHandler=UUIDTypeHandler}::uuid
+            AND author_user_id = #{authorUserId,typeHandler=UUIDTypeHandler}::uuid
+    </update>
+
+    <delete id="deletePost">
+        DELETE FROM posts
+        WHERE id = #{postId,typeHandler=UUIDTypeHandler}::uuid
+    </delete>
+
+    <select id="getPost" resultMap="PostResultMap">
+        SELECT id, text, author_user_id
+        FROM posts
+        WHERE id = #{postId,typeHandler=UUIDTypeHandler}::uuid
+    </select>
+
+    <select id="getPostByIds" resultMap="PostResultMap">
+        SELECT id, text, author_user_id
+        FROM posts
+        WHERE id IN
+        <foreach item="postId" collection="postIds" open="(" separator="," close=")">
+            #{postId,typeHandler=UUIDTypeHandler}::uuid
+        </foreach>
+    </select>
+
+    <select id="getUserFeed" resultType="java.util.UUID">
+        SELECT p.id
+        FROM users AS u
+        JOIN friends AS f ON f.user_id = u.id
+        JOIN posts AS p ON p.author_user_id = f.friend_id
+        WHERE u.id = #{userId,typeHandler=UUIDTypeHandler}::uuid
+        ORDER BY p.updated_at DESC
+        LIMIT #{limit,jdbcType=INTEGER}
+    </select>
+
+</mapper>
