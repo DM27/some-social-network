@@ -5,13 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 public class UserDo {
 
-    private Long id;
-    private String uuid;
+    private UUID id;
     private String firstName;
     private String secondName;
     private LocalDate birthdate;
@@ -21,7 +21,6 @@ public class UserDo {
     private String password;
 
     public UserDo(UserDto userDto) {
-        uuid = userDto.getUuid();
         firstName = userDto.getFirstName();
         secondName = userDto.getSecondName();
         birthdate = userDto.getBirthdate();

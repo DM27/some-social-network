@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +21,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String userUuid) {
-        NotValidDataException.throwIf(userUuid == null, "Невалидные данные");
+    public UserDetails loadUserByUsername(String userId) {
+        NotValidDataException.throwIf(userId == null, "Невалидные данные");
 
-        UserDo userDo = userMapper.getUserByUuid(userUuid);
+        UUID uuid = UUID.fromString(userId);
+        UserDo userDo = userMapper.getUserById(uuid);
         NotFoundException.throwIf(userDo == null, "Анкета не найдена");
 
-        String authenticatedUsername = userDo.getUuid();
+        String authenticatedUsername = userDo.getId().toString();
         String authenticatedPassword = userDo.getPassword();
         SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority("USER");
 

@@ -13,8 +13,7 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(value = "password", allowSetters = true)
 public class UserDto {
 
-    @JsonProperty("id")
-    private String uuid;
+    private String id;
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("second_name")
@@ -26,7 +25,7 @@ public class UserDto {
     private String password;
 
     public UserDto(UserDo user) {
-        uuid = user.getUuid();
+        id = user.getId().toString();
         firstName = user.getFirstName();
         secondName = user.getSecondName();
         birthdate = user.getBirthdate();

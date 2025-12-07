@@ -26,7 +26,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     public LoginDto loginUser(@RequestBody UserDto userDto) {
-        String userLogin = userDto.getUuid();
+        String userLogin = userDto.getId();
         String password = userDto.getPassword();
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin, password));
 

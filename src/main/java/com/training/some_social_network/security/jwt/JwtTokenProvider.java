@@ -34,17 +34,17 @@ public class JwtTokenProvider {
 
     private Algorithm algorithm;
 
-    public String getAccessToken(String userUuid) {
+    public String getAccessToken(String userId) {
         Date now = new Date();
         Date expireAt = new Date(now.getTime() + expirationMinute * 60 * 1000);
-        return createAccessToken(userUuid, now, expireAt);
+        return createAccessToken(userId, now, expireAt);
     }
 
-    private String createAccessToken(String username, Date now, Date expireAt) {
+    private String createAccessToken(String userId, Date now, Date expireAt) {
         String issuerUri = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
         return JWT.create()
                 .withIssuer(issuerUri)
-                .withSubject(username)
+                .withSubject(userId)
                 .withIssuedAt(now)
                 .withExpiresAt(expireAt)
                 .sign(algorithm)

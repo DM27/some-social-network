@@ -8,11 +8,13 @@ import com.training.some_social_network.exceptions.NotValidDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
@@ -24,22 +26,20 @@ public class UserService {
         NotValidDataException.throwIf(userDto.getPassword() == null, "Невалидные данные");
         NotValidDataException.throwIf(userDto.getPassword().isEmpty(), "Невалидные данные");
 
-        UserDo existedUser = userDto.getUuid() != null ? userMapper.getUserByUuid(userDto.getUuid()) : null;
-        NotValidDataException.throwIf(existedUser != null, "Невалидные данные");
-
         UserDo newUser = new UserDo(userDto);
-        newUser.setUuid(UUID.randomUUID().toString());
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         userMapper.insertUser(newUser);
 
-        return newUser.getUuid();
+        return newUser.getId().toString();
     }
 
-    public UserDto obtainUserByUuid(String uuid) {
-        NotValidDataException.throwIf(uuid == null, "Невалидные данные");
+    public UserDto obtainUserById(String userId) {
+        NotValidDataException.throwIf(userId == null, "Невалидные данные");
 
-        UserDo user = userMapper.getUserByUuid(uuid);
+        UUID uuid = UUID.fromString(userId);
+
+        UserDo user = userMapper.getUserById(uuid);
         NotFoundException.throwIf(user == null, "Анкета не найдена");
 
         return new UserDto(user);

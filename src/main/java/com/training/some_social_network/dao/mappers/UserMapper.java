@@ -5,11 +5,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mapper
 public interface UserMapper {
 
-    UserDo getUserByUuid(String uuid);
+    UserDo getUserById(@Param("userId") UUID userId);
 
     void insertUser(UserDo userDo);
 

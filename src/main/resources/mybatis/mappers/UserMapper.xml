@@ -3,8 +3,7 @@
 <mapper namespace="com.training.some_social_network.dao.mappers.UserMapper">
 
     <resultMap id="UserResultMap" type="User">
-        <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <id column="id" property="id" jdbcType="OTHER" typeHandler="UUIDTypeHandler"/>
         <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
         <result column="second_name" property="secondName" jdbcType="VARCHAR"/>
         <result column="birth_date" property="birthdate" jdbcType="DATE"/>
@@ -15,7 +14,6 @@
     </resultMap>
 
     <sql id="userColumns">
-        uuid,
         first_name,
         second_name,
         birth_date,
@@ -25,15 +23,16 @@
         password
     </sql>
 
-    <select id="getUserByUuid" parameterType="String" resultMap="UserResultMap">
+    <select id="getUserById" resultMap="UserResultMap">
         SELECT id, <include refid="userColumns"/>
         FROM users
-        WHERE uuid = #{uuid}
+        WHERE id = #{userId,typeHandler=UUIDTypeHandler}::uuid
     </select>
 
     <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO users (<include refid="userColumns"/>)
-        VALUES (#{uuid},#{firstName},#{secondName},#{birthdate},#{gender},#{biography},#{city},#{password})
+        VALUES (#{firstName},#{secondName},#{birthdate},#{gender},#{biography},#{city},#{password})
+        RETURNING id;
     </insert>
 
     <select id="searchUsers" parameterType="String" resultMap="UserResultMap">
