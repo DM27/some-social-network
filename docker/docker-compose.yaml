@@ -37,6 +37,7 @@ services:
       timeout: 3s
       retries: 3
   redis-cache:
+    container_name: redis-cache
     image: redis:8-alpine
     ports:
       - "6379:6379"
@@ -46,6 +47,7 @@ services:
       - social-network
     restart: unless-stopped
   rabbit-mq:
+    container_name: rabbit-mq
     image: rabbitmq:4-management-alpine
     environment:
       RABBITMQ_DEFAULT_USER: guest

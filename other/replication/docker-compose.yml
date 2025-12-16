@@ -1,0 +1,50 @@
+services:
+  grafana:
+    image: grafana/grafana:8.5.3-ubuntu
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - grafana-configs:/etc/grafana
+    networks:
+      - pgnet
+  prometheus:
+    image: prom/prometheus:v2.36.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - prom-data:/prometheus
+      - prom-configs:/etc/prometheus
+    networks:
+      - pgnet
+  postgres-exporter-master:
+    image: quay.io/prometheuscommunity/postgres-exporter
+    ports:
+      - "9187:9187"
+    environment:
+      DATA_SOURCE_URI: pgmaster:5432/bd_social?sslmode=disable
+      DATA_SOURCE_USER: bd_admin
+      DATA_SOURCE_PASS: bd_pass
+    networks:
+      - pgnet
+  postgres-exporter-replica:
+    image: quay.io/prometheuscommunity/postgres-exporter
+    ports:
+      - "19187:9187"
+    environment:
+      DATA_SOURCE_URI: pgslave:15432/bd_social?sslmode=disable
+      DATA_SOURCE_USER: bd_admin
+      DATA_SOURCE_PASS: bd_pass
+    networks:
+      - pgnet
+      
+volumes:
+  grafana-data:
+  grafana-configs:
+  prom-data:
+  prom-configs:
+  
+networks:
+  pgnet:
+    name: pgnet
+    external: true

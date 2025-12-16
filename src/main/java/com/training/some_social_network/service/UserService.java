@@ -16,13 +16,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public String register(UserDto userDto) {
         NotValidDataException.throwIf(userDto == null, "Невалидные данные");
         NotValidDataException.throwIf(userDto.getPassword() == null, "Невалидные данные");
@@ -36,6 +36,7 @@ public class UserService {
         return newUser.getId().toString();
     }
 
+    @Transactional(readOnly = true)
     public UserDto obtainUserById(String userId) {
         NotValidDataException.throwIf(userId == null, "Невалидные данные");
 
@@ -47,6 +48,7 @@ public class UserService {
         return new UserDto(user);
     }
 
+    @Transactional(readOnly = true)
     public List<UserDto> searchUsers(String firstName, String secondName) {
         NotValidDataException.throwIf(firstName == null, "Невалидные данные");
         NotValidDataException.throwIf(secondName == null, "Невалидные данные");
@@ -58,6 +60,7 @@ public class UserService {
                 .toList();
     }
 
+    @Transactional
     public void addFriend(String friendId) {
         NotValidDataException.throwIf(friendId == null, "Невалидные данные");
 
@@ -67,6 +70,7 @@ public class UserService {
         userMapper.addFriend(userId.get(), UUID.fromString(friendId));
     }
 
+    @Transactional
     public void deleteFriend(String friendId) {
         NotValidDataException.throwIf(friendId == null, "Невалидные данные");
         userMapper.deleteFriend(UUID.fromString(friendId));

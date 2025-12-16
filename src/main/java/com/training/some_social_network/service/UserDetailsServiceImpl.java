@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserMapper userMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String userId) {
         NotValidDataException.throwIf(userId == null, "Невалидные данные");
 

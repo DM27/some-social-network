@@ -11,6 +11,7 @@ import com.training.some_social_network.redis.RedisCacheService;
 import com.training.some_social_network.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class PostService {
     private final RabbitService rabbitService;
     private final RedisCacheService cacheService;
 
+    @Transactional
     public PostDto create(String postText) {
         NotValidDataException.throwIf(postText == null, "Невалидные данные");
 
@@ -41,6 +43,7 @@ public class PostService {
         return new PostDto(postDo);
     }
 
+    @Transactional
     public void update(PostDto postDto) {
         NotValidDataException.throwIf(postDto.getId() == null, "Невалидные данные");
         NotValidDataException.throwIf(postDto.getText() == null, "Невалидные данные");
@@ -58,6 +61,7 @@ public class PostService {
         rabbitService.sendPostState(new PostStateDto(postDo.getId(), userId.get(), PostState.UPDATED));
     }
 
+    @Transactional
     public void delete(String id) {
         NotValidDataException.throwIf(id == null, "Невалидные данные");
 
@@ -68,6 +72,7 @@ public class PostService {
         rabbitService.sendPostState(new PostStateDto(postId, postDo.getAuthorUserId(), PostState.DELETED));
     }
 
+    @Transactional(readOnly = true)
     public PostDto get(String id) {
         NotValidDataException.throwIf(id == null, "Невалидные данные");
 
@@ -77,6 +82,7 @@ public class PostService {
         return postDo != null ? new PostDto(postDo) : null;
     }
 
+    @Transactional(readOnly = true)
     public List<PostDto> getCurrentUserFeed(Integer offset, Integer limit) {
         NotValidDataException.throwIf(offset == null, "Невалидные данные");
         NotValidDataException.throwIf(limit == null, "Невалидные данные");
