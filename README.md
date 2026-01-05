@@ -21,6 +21,8 @@ Specification : https://github.com/OtusTeam/highload/blob/master/homework/openap
 - /post/update
 - /post/delete
 - /post/get
+- /dialog/{user_id}/send
+- /dialog/{user_id}/list
  
 ## List of dependencies
 - Spring WEB

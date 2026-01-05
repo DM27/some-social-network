@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.training.some_social_network.dao.mappers.DialogMapper">
+
+    <resultMap id="DialogResultMap" type="Dialog">
+        <id column="id" property="id" jdbcType="OTHER" typeHandler="UUIDTypeHandler"/>
+        <result column="user_from_id" property="userFromId" jdbcType="OTHER" typeHandler="UUIDTypeHandler"/>
+        <result column="user_to_id" property="userToId" jdbcType="OTHER" typeHandler="UUIDTypeHandler"/>
+        <result column="message" property="message" jdbcType="VARCHAR"/>
+        <result column="shard_key" property="shardKey" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="add" parameterType="Dialog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO dialogs (user_from_id, user_to_id, message, shard_key)
+        VALUES (
+            #{userFromId,typeHandler=UUIDTypeHandler}::uuid,
+            #{userToId,typeHandler=UUIDTypeHandler}::uuid,
+            #{message},
+            #{shardKey}
+        )
+        RETURNING id;
+    </insert>
+
+    <select id="findDialogs" resultMap="DialogResultMap">
+        SELECT id, user_from_id, user_to_id, message
+        FROM dialogs
+        WHERE shard_key = #{shardKey}
+    </select>
+</mapper>

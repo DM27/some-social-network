@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS posts (
 
 CREATE INDEX IF NOT EXISTS idx_posts_author_user_id ON posts (author_user_id);
 
-COMMENT ON TABLE friends IS 'Таблица постов пользователя';
+COMMENT ON TABLE posts IS 'Таблица постов пользователя';
