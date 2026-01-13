@@ -5,7 +5,7 @@ Study project
 Go to the project directory.
 Run command:
 ```shell
-docker compose -f ./docker/docker-compose.yaml up
+docker compose -f ./docker/docker-compose.yaml up -d
 ```
 Api will be available at http://localhost:8080/api/v1
 

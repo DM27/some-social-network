@@ -26,7 +26,7 @@ public class JwtTokenProvider {
 
     @Value("${jwt.token.secretKey:some_key}")
     private String secretKey;
-    @Value("${jwt.token.expirationMinute:3600}")
+    @Value("${jwt.token.expirationMinute:360000}")
     private long expirationMinute;
 
     public static final String TOKEN_PREFIX = "Bearer ";
@@ -63,7 +63,10 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(HEADER_STRING);
+        return resolveToken(request.getHeader(HEADER_STRING));
+    }
+
+    public String resolveToken(String bearerToken) {
         if (bearerToken != null && bearerToken.startsWith(TOKEN_PREFIX)) {
             return bearerToken.substring(TOKEN_PREFIX.length());
         }

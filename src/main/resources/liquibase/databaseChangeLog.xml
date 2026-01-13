@@ -27,10 +27,16 @@
                  path="20251206_init_user_posts_table.sql"/>
     </changeSet>
 
-    <changeSet author="meldim" id="20251229_init_user_dialog_table_citus">
+    <changeSet author="meldim" id="20251229_init_user_dialog_table">
         <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
                  relativeToChangelogFile="true" splitStatements="true" stripComments="false"
-                 path="20251229_init_user_dialog_table_citus.sql"/>
+                 path="20251229_init_user_dialog_table.sql"/>
+    </changeSet>
+
+    <changeSet author="meldim" id="20260112_init_table_data">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20260112_init_table_data.sql"/>
     </changeSet>
 
 </databaseChangeLog>

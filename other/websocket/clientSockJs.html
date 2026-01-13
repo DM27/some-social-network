@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket с JWT авторизацией</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .messages-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: #4a5568;
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-connect {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+
+        .btn-connect:hover {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 161, 105, 0.4);
+        }
+
+        .btn-disconnect {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            color: white;
+        }
+
+        .btn-disconnect:hover {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
+        }
+
+        .btn-subscribe {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+        }
+
+        .btn-subscribe:hover {
+            background: linear-gradient(135deg, #3182ce, #2c5282);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(49, 130, 206, 0.4);
+        }
+
+        .btn-unsubscribe {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+        }
+
+        .btn-unsubscribe:hover {
+            background: linear-gradient(135deg, #dd6b20, #c05621);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(221, 107, 32, 0.4);
+        }
+
+        .btn-send {
+            background: linear-gradient(135deg, #9f7aea, #805ad5);
+            color: white;
+        }
+
+        .btn-send:hover {
+            background: linear-gradient(135deg, #805ad5, #6b46c1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(128, 90, 213, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .status-connected {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+        }
+
+        .status-disconnected {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+
+        .status-connecting {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-connected .status-indicator {
+            background: #38a169;
+            animation: pulse 2s infinite;
+        }
+
+        .status-disconnected .status-indicator {
+            background: #e53e3e;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .channels-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .channel-tag {
+            background: #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .channel-tag.active {
+            background: #bee3f8;
+            color: #2c5282;
+            border: 1px solid #90cdf4;
+        }
+
+        .messages-container {
+            flex: 1;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            overflow-y: auto;
+            max-height: 500px;
+            min-height: 300px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-system {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+        }
+
+        .message-error {
+            background: #fff5f5;
+            border-left: 4px solid #f56565;
+        }
+
+        .message-success {
+            background: #f0fff4;
+            border-left: 4px solid #48bb78;
+        }
+
+        .message-data {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #9f7aea;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .message-topic {
+            font-weight: bold;
+        }
+
+        .message-time {
+            font-family: 'Courier New', monospace;
+        }
+
+        .message-content {
+            word-break: break-word;
+        }
+
+        .message-content pre {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .presets {
+            margin-top: 10px;
+        }
+
+        .preset-btn {
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 8px 12px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .preset-btn:hover {
+            background: #cbd5e0;
+        }
+
+        .jwt-info {
+            background: #fefcbf;
+            border: 1px solid #d69e2e;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .jwt-info.visible {
+            display: block;
+        }
+
+        .token-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .copy-btn {
+            background: #a0aec0;
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+
+        .copy-btn:hover {
+            background: #718096;
+        }
+
+        .clear-btn {
+            background: #fc8181;
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+
+        .clear-btn:hover {
+            background: #f56565;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Левая панель - управление -->
+    <div class="panel control-panel">
+        <h1><i class="fas fa-plug"></i> WebSocket SockJs клиент</h1>
+
+        <!-- Настройки подключения -->
+        <div class="form-group">
+            <h2><i class="fas fa-cog"></i> Настройки подключения</h2>
+            <div class="form-group">
+                <label for="wsUrl">WebSocket URL:</label>
+                <input type="text" id="wsUrl" value="http://localhost:8080/ws">
+            </div>
+
+            <div class="form-group">
+                <label for="jwtToken">JWT токен:</label>
+                <textarea id="jwtToken" placeholder="Введите ваш JWT токен..."></textarea>
+                <div class="token-actions">
+                    <button class="copy-btn" onclick="copyToken()">
+                        <i class="far fa-copy"></i> Копировать
+                    </button>
+                    <button class="clear-btn" onclick="clearToken()">
+                        <i class="far fa-trash-alt"></i> Очистить
+                    </button>
+                </div>
+                <div id="jwtInfo" class="jwt-info"></div>
+            </div>
+
+            <div class="btn-group">
+                <button id="connectBtn" class="btn-connect" onclick="connect()">
+                    <i class="fas fa-plug"></i> Подключиться
+                </button>
+                <button id="disconnectBtn" class="btn-disconnect" onclick="disconnect()" disabled>
+                    <i class="fas fa-power-off"></i> Отключиться
+                </button>
+            </div>
+
+            <div id="connectionStatus" class="status status-disconnected">
+                <span class="status-indicator"></span>
+                <span>Не подключено</span>
+            </div>
+        </div>
+
+        <!-- Подписка на каналы -->
+        <div class="form-group">
+            <h2><i class="fas fa-rss"></i> Подписка на каналы</h2>
+            <div class="form-group">
+                <label for="channelInput">Канал для подписки:</label>
+                <input type="text" id="channelInput" value="/user/post/feed/posted">
+            </div>
+
+            <div class="btn-group">
+                <button id="subscribeBtn" class="btn-subscribe" onclick="subscribe()" disabled>
+                    <i class="fas fa-bell"></i> Подписаться
+                </button>
+                <button id="unsubscribeBtn" class="btn-unsubscribe" onclick="unsubscribe()" disabled>
+                    <i class="fas fa-bell-slash"></i> Отписаться
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label>Активные подписки:</label>
+                <div id="activeSubscriptions" class="channels-list">
+                    <!-- Активные каналы будут добавляться здесь -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Отправка сообщений -->
+        <div class="form-group">
+            <h2><i class="fas fa-paper-plane"></i> Отправка сообщений</h2>
+            <div class="form-group">
+                <label for="sendDestination">Назначение:</label>
+                <input type="text" id="sendDestination" value="/app/send">
+            </div>
+            <div class="form-group">
+                <label for="messageInput">Сообщение (JSON):</label>
+                <textarea id="messageInput" placeholder='{"text": "Привет!", "type": "MESSAGE"}'>{"text": "Тестовое сообщение", "type": "TEST", "timestamp": "2024-01-15T10:30:00"}</textarea>
+            </div>
+            <button id="sendBtn" class="btn-send" onclick="sendMessage()" disabled>
+                <i class="fas fa-paper-plane"></i> Отправить
+            </button>
+        </div>
+    </div>
+
+    <!-- Правая панель - сообщения и статистика -->
+    <div class="panel messages-panel">
+        <h2><i class="fas fa-comments"></i> Лог сообщений</h2>
+        <div id="messagesContainer" class="messages-container">
+            <!-- Сообщения будут добавляться здесь -->
+            <div class="message message-system">
+                <div class="message-header">
+                    <span class="message-topic">Система</span>
+                    <span class="message-time" id="currentTime"></span>
+                </div>
+                <div class="message-content">
+                    Добро пожаловать! Укажите JWT токен и нажмите "Подключиться"
+                </div>
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="statsReceived">0</div>
+                <div class="stat-label">Получено сообщений</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statsSent">0</div>
+                <div class="stat-label">Отправлено сообщений</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statsSubscriptions">0</div>
+                <div class="stat-label">Активных подписок</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="connectionTime">0</div>
+                <div class="stat-label">Секунд подключения</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Глобальные переменные
+    let stompClient = null;
+    let socket = null;
+    let isConnected = false;
+    let subscriptions = new Map(); // Map для хранения подписок
+    let connectionStartTime = 0;
+
+    // Статистика
+    let stats = {
+        messagesReceived: 0,
+        messagesSent: 0,
+        connectionTimer: null
+    };
+
+    // Примеры JWT токенов для тестирования
+    const sampleTokens = {
+        user1: "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiI1ZGZiZGVmOS02Y2ZhLTQzMjgtYjc4OC04NjQ0OGQyMGExM2MiLCJpYXQiOjE3NjgyNjE1MjIsImV4cCI6MTc4OTg2MTUyMn0.WR_4ZGMhvu-nJfS6u04IJJ-n2jrVkXymEQwaPkNkRNww8sx5XsN0j0CXluxXivl6eNWFsuC28xOqogGbKtmUFA"
+    };
+
+    // Инициализация
+    function init() {
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Автозаполнение тестовым токеном (для демонстрации)
+        document.getElementById('jwtToken').value = sampleTokens.user1;
+
+        // Парсинг JWT для отображения информации
+        parseJwtInfo();
+    }
+
+    // Парсинг и отображение информации из JWT
+    function parseJwtInfo() {
+        const token = document.getElementById('jwtToken').value.trim();
+        const infoDiv = document.getElementById('jwtInfo');
+
+        if (!token) {
+            infoDiv.classList.remove('visible');
+            return;
+        }
+
+        try {
+            // JWT состоит из header.payload.signature
+            const parts = token.split('.');
+            if (parts.length !== 3) {
+                throw new Error('Неверный формат JWT');
+            }
+
+            // Декодируем payload (вторая часть)
+            const payload = JSON.parse(atob(parts[1]));
+
+            let info = `<strong>Информация из токена:</strong><br>`;
+            if (payload.sub) info += `ID: ${payload.sub}<br>`;
+            if (payload.username) info += `Имя: ${payload.username}<br>`;
+            if (payload.roles) info += `Роли: ${Array.isArray(payload.roles) ? payload.roles.join(', ') : payload.roles}<br>`;
+            if (payload.exp) {
+                const expDate = new Date(payload.exp * 1000);
+                info += `Истекает: ${expDate.toLocaleString()}<br>`;
+            }
+            if (payload.iat) {
+                const iatDate = new Date(payload.iat * 1000);
+                info += `Выдан: ${iatDate.toLocaleString()}`;
+            }
+
+            infoDiv.innerHTML = info;
+            infoDiv.classList.add('visible');
+        } catch (e) {
+            infoDiv.innerHTML = `<strong>Ошибка парсинга JWT:</strong> ${e.message}`;
+            infoDiv.classList.add('visible');
+        }
+    }
+
+    // Подключение к WebSocket
+    function connect() {
+        const wsUrl = document.getElementById('wsUrl').value;
+        const jwtToken = document.getElementById('jwtToken').value.trim();
+
+        if (!wsUrl) {
+            showMessage('Ошибка: Укажите URL WebSocket', 'error');
+            return;
+        }
+
+        if (!jwtToken) {
+            showMessage('Ошибка: Укажите JWT токен', 'error');
+            return;
+        }
+
+        showMessage('Подключение...', 'system');
+        updateStatus('connecting', 'Подключение...');
+
+        try {
+            // Создаем SockJS соединение
+            socket = new SockJS(wsUrl);
+            stompClient = Stomp.over(socket);
+
+            // Настраиваем заголовки с JWT
+            const headers = {
+                'Authorization': 'Bearer ' + jwtToken,
+                'X-Client-Type': 'web-ui'
+            };
+
+            // Подключаемся
+            stompClient.connect(
+                headers,
+                function(frame) {
+                    isConnected = true;
+                    connectionStartTime = Date.now();
+                    startConnectionTimer();
+
+                    showMessage('Успешно подключено!', 'success');
+                    showMessage('ID сессии: ' + frame.headers['session-id'], 'system');
+                    updateStatus('connected', 'Подключено');
+
+                    // Активируем кнопки
+                    document.getElementById('connectBtn').disabled = true;
+                    document.getElementById('disconnectBtn').disabled = false;
+                    document.getElementById('subscribeBtn').disabled = false;
+                    document.getElementById('sendBtn').disabled = false;
+
+                    // Автоподписка на системные каналы
+                    autoSubscribe();
+                },
+                function(error) {
+                    showMessage('Ошибка подключения: ' + error, 'error');
+                    updateStatus('disconnected', 'Ошибка подключения');
+                    isConnected = false;
+                }
+            );
+
+        } catch (e) {
+            showMessage('Ошибка: ' + e.message, 'error');
+            updateStatus('disconnected', 'Ошибка');
+        }
+    }
+
+    // Автоматическая подписка на системные каналы
+    function autoSubscribe() {
+        const userId = extractUserIdFromToken();
+        if (userId) {
+            // Подписка на приватные уведомления пользователя
+            subscribeToChannel(`/user/${userId}/post/feed/posted`);
+        }
+    }
+
+    // Извлечение ID пользователя из JWT
+    function extractUserIdFromToken() {
+        try {
+            const token = document.getElementById('jwtToken').value.trim();
+            const parts = token.split('.');
+            if (parts.length === 3) {
+                const payload = JSON.parse(atob(parts[1]));
+                return payload.sub || null;
+            }
+        } catch (e) {
+            return null;
+        }
+        return null;
+    }
+
+    // Подписка на канал
+    function subscribe() {
+        const channel = document.getElementById('channelInput').value.trim();
+
+        if (!channel) {
+            showMessage('Ошибка: Укажите канал для подписки', 'error');
+            return;
+        }
+
+        if (!isConnected) {
+            showMessage('Ошибка: Нет подключения к WebSocket', 'error');
+            return;
+        }
+
+        subscribeToChannel(channel);
+    }
+
+    // Вспомогательная функция подписки на канал
+    function subscribeToChannel(channel) {
+        if (subscriptions.has(channel)) {
+            showMessage(`Уже подписаны на канал: ${channel}`, 'system');
+            return;
+        }
+
+        try {
+            const subscription = stompClient.subscribe(channel, function(message) {
+                stats.messagesReceived++;
+                updateStats();
+
+                let content;
+                try {
+                    content = JSON.parse(message.body);
+                    showMessage(`Получено сообщение из ${channel}:`, 'data', JSON.stringify(content, null, 2));
+                } catch (e) {
+                    content = message.body;
+                    showMessage(`Получено сообщение из ${channel}: ${content}`, 'data');
+                }
+            }, {
+                'Authorization': 'Bearer ' + document.getElementById('jwtToken').value.trim()
+            });
+
+            subscriptions.set(channel, subscription);
+            updateSubscriptionsList();
+            showMessage(`Подписались на канал: ${channel}`, 'success');
+
+        } catch (e) {
+            showMessage(`Ошибка подписки на ${channel}: ${e.message}`, 'error');
+        }
+    }
+
+    // Отписка от канала
+    function unsubscribe() {
+        const channel = document.getElementById('channelInput').value.trim();
+
+        if (!subscriptions.has(channel)) {
+            showMessage(`Не подписаны на канал: ${channel}`, 'error');
+            return;
+        }
+
+        try {
+            const subscription = subscriptions.get(channel);
+            subscription.unsubscribe();
+            subscriptions.delete(channel);
+            updateSubscriptionsList();
+            showMessage(`Отписались от канала: ${channel}`, 'success');
+        } catch (e) {
+            showMessage(`Ошибка отписки от ${channel}: ${e.message}`, 'error');
+        }
+    }
+
+    // Отправка сообщения
+    function sendMessage() {
+        if (!isConnected) {
+            showMessage('Ошибка: Нет подключения к WebSocket', 'error');
+            return;
+        }
+
+        const destination = document.getElementById('sendDestination').value.trim();
+        const messageText = document.getElementById('messageInput').value.trim();
+
+        if (!destination || !messageText) {
+            showMessage('Ошибка: Заполните все поля для отправки', 'error');
+            return;
+        }
+
+        try {
+            let message;
+            try {
+                message = JSON.parse(messageText);
+            } catch (e) {
+                // Если не JSON, отправляем как текст
+                message = { text: messageText };
+            }
+
+            const headers = {
+                'Authorization': 'Bearer ' + document.getElementById('jwtToken').value.trim(),
+                'content-type': 'application/json'
+            };
+
+            stompClient.send(destination, headers, JSON.stringify(message));
+            stats.messagesSent++;
+            updateStats();
+
+            showMessage(`Отправлено в ${destination}:`, 'system', messageText);
+
+        } catch (e) {
+            showMessage(`Ошибка отправки: ${e.message}`, 'error');
+        }
+    }
+
+    // Отключение от WebSocket
+    function disconnect() {
+        if (stompClient && isConnected) {
+            // Отписываемся от всех каналов
+            subscriptions.forEach((subscription, channel) => {
+                subscription.unsubscribe();
+            });
+            subscriptions.clear();
+            updateSubscriptionsList();
+
+            // Отключаемся
+            stompClient.disconnect(function() {
+                showMessage('Отключено от WebSocket', 'system');
+            });
+
+            isConnected = false;
+            stopConnectionTimer();
+
+            // Обновляем UI
+            document.getElementById('connectBtn').disabled = false;
+            document.getElementById('disconnectBtn').disabled = true;
+            document.getElementById('subscribeBtn').disabled = true;
+            document.getElementById('sendBtn').disabled = true;
+            document.getElementById('unsubscribeBtn').disabled = true;
+
+            updateStatus('disconnected', 'Не подключено');
+        }
+    }
+
+    // Обновление списка активных подписок
+    function updateSubscriptionsList() {
+        const container = document.getElementById('activeSubscriptions');
+        container.innerHTML = '';
+
+        subscriptions.forEach((subscription, channel) => {
+            const tag = document.createElement('div');
+            tag.className = 'channel-tag active';
+            tag.innerHTML = `
+                <i class="fas fa-rss"></i>
+                ${channel}
+                <i class="fas fa-times" onclick="unsubscribeFromChannel('${channel}')" style="cursor:pointer; margin-left:5px;"></i>
+            `;
+            container.appendChild(tag);
+        });
+
+        document.getElementById('statsSubscriptions').textContent = subscriptions.size;
+    }
+
+    // Отписка от конкретного канала
+    function unsubscribeFromChannel(channel) {
+        document.getElementById('channelInput').value = channel;
+        unsubscribe();
+    }
+
+    // Обновление статуса подключения
+    function updateStatus(status, text) {
+        const statusDiv = document.getElementById('connectionStatus');
+        statusDiv.className = 'status status-' + status;
+        statusDiv.querySelector('span:last-child').textContent = text;
+    }
+
+    // Отображение сообщений в логе
+    function showMessage(text, type, data = null) {
+        const container = document.getElementById('messagesContainer');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message message-' + type;
+
+        const time = new Date().toLocaleTimeString();
+
+        let content = text;
+        if (data) {
+            content += `<pre>${data}</pre>`;
+        }
+
+        messageDiv.innerHTML = `
+            <div class="message-header">
+                <span class="message-topic">${type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                <span class="message-time">${time}</span>
+            </div>
+            <div class="message-content">${content}</div>
+        `;
+
+        container.appendChild(messageDiv);
+        container.scrollTop = container.scrollHeight;
+
+        updateStats();
+    }
+
+    // Обновление статистики
+    function updateStats() {
+        document.getElementById('statsReceived').textContent = stats.messagesReceived;
+        document.getElementById('statsSent').textContent = stats.messagesSent;
+    }
+
+    // Таймер подключения
+    function startConnectionTimer() {
+        stopConnectionTimer();
+        stats.connectionTimer = setInterval(() => {
+            if (connectionStartTime) {
+                const seconds = Math.floor((Date.now() - connectionStartTime) / 1000);
+                document.getElementById('connectionTime').textContent = seconds;
+            }
+        }, 1000);
+    }
+
+    function stopConnectionTimer() {
+        if (stats.connectionTimer) {
+            clearInterval(stats.connectionTimer);
+            stats.connectionTimer = null;
+        }
+    }
+
+    // Обновление времени
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('currentTime').textContent =
+            now.toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+    }
+
+    // Вспомогательные функции
+    function setToken(token) {
+        document.getElementById('jwtToken').value = token;
+        parseJwtInfo();
+    }
+
+    function setChannel(channel) {
+        document.getElementById('channelInput').value = channel;
+    }
+
+    function copyToken() {
+        const tokenField = document.getElementById('jwtToken');
+        tokenField.select();
+        document.execCommand('copy');
+        showMessage('Токен скопирован в буфер обмена', 'success');
+    }
+
+    function clearToken() {
+        document.getElementById('jwtToken').value = '';
+        document.getElementById('jwtInfo').classList.remove('visible');
+    }
+
+    // Обработчики событий
+    document.getElementById('jwtToken').addEventListener('input', parseJwtInfo);
+    document.getElementById('channelInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') subscribe();
+    });
+
+    document.getElementById('messageInput').addEventListener('keypress', function(e) {
+        if (e.ctrlKey && e.key === 'Enter') sendMessage();
+    });
+
+    // Запуск при загрузке
+    window.onload = init;
+</script>
+</body>
+</html>

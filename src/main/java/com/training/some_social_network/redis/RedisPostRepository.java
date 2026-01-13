@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +14,7 @@ import java.util.UUID;
 public class RedisPostRepository {
 
     public static final String POST_KEY_PREFIX = "postFeed:";
+    public static final Duration POST_CACHE_TTL = Duration.of(24, ChronoUnit.HOURS);
 
     private final RedisTemplate<String, String> redisTemplate;
 
@@ -21,7 +24,9 @@ public class RedisPostRepository {
     }
 
     public void add(UUID userId, UUID postId) {
-        redisTemplate.opsForList().leftPush(POST_KEY_PREFIX + userId, postId.toString());
+        String key = POST_KEY_PREFIX + userId;
+        redisTemplate.opsForList().leftPush(key, postId.toString());
+        redisTemplate.expire(key, POST_CACHE_TTL);
     }
 
     public void remove(UUID userId, UUID postId) {
@@ -31,7 +36,9 @@ public class RedisPostRepository {
     public void addAll(UUID userId, List<UUID> userFeed) {
         if (!userFeed.isEmpty()) {
             List<String> posts = userFeed.stream().map(UUID::toString).toList();
-            redisTemplate.opsForList().leftPushAll(POST_KEY_PREFIX + userId, posts);
+            String key = POST_KEY_PREFIX + userId;
+            redisTemplate.opsForList().leftPushAll(key, posts);
+            redisTemplate.expire(key, POST_CACHE_TTL);
         }
     }
 

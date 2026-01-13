@@ -7,7 +7,6 @@ import com.training.some_social_network.dto.PostState;
 import com.training.some_social_network.dto.PostStateDto;
 import com.training.some_social_network.exceptions.NotValidDataException;
 import com.training.some_social_network.rabbitmq.RabbitService;
-import com.training.some_social_network.redis.RedisCacheService;
 import com.training.some_social_network.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class PostService {
 
     private final PostMapper postMapper;
     private final RabbitService rabbitService;
-    private final RedisCacheService cacheService;
+    private final FeedService feedService;
 
     @Transactional
     public PostDto create(String postText) {
@@ -90,7 +89,7 @@ public class PostService {
         Optional<UUID> userId = SecurityHelper.getCurrentUserId();
         NotValidDataException.throwIf(userId.isEmpty(), "Невалидные данные");
 
-        List<UUID> postIds = cacheService.getUserFeed(userId.get(), offset, limit);
+        List<UUID> postIds = feedService.getUserFeed(userId.get(), offset, limit);
         if (postIds.isEmpty()) {
             return List.of();
         }

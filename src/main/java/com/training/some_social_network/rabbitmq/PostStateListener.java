@@ -1,7 +1,7 @@
 package com.training.some_social_network.rabbitmq;
 
 import com.training.some_social_network.dto.PostStateDto;
-import com.training.some_social_network.redis.RedisCacheService;
+import com.training.some_social_network.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PostStateListener {
 
-    private final RedisCacheService redisService;
+    private final FeedService feedService;
 
     /**
      * todo: Add error handling
@@ -22,9 +22,9 @@ public class PostStateListener {
         }
 
         switch (postState.getState()) {
-            case CREATED -> redisService.addToFeed(postState.getId(), postState.getAuthorId());
-            case UPDATED -> redisService.updateFeed(postState.getId(), postState.getAuthorId());
-            case DELETED -> redisService.removeFromFeed(postState.getId(), postState.getAuthorId());
+            case CREATED -> feedService.addToFeed(postState.getId(), postState.getAuthorId());
+            case DELETED -> feedService.removeFromFeed(postState.getId(), postState.getAuthorId());
+            case UPDATED -> { /* nop */ }
         }
     }
 }

@@ -1,10 +1,12 @@
+name: otus_hw
+
 services:
   social-app:
     container_name: social-app
     build:
       context: ../
       dockerfile: ./docker/Dockerfile
-    image: some-social-app:0.0.5
+    image: some-social-app:0.6.1
     environment: &AUTH
       POSTGRES_SERVER: postgres-db
       POSTGRES_DB: bd_social
