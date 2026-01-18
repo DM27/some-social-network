@@ -18,7 +18,7 @@ public class DialogDto {
     private String message;
 
     public DialogDto(DialogDo dialogDo) {
-        this.id = dialogDo.getId().toString();
+        this.id = dialogDo.getId() != null ? dialogDo.getId().toString() : null;
         this.userFromId = dialogDo.getUserFromId().toString();
         this.userToId = dialogDo.getUserFromId().toString();
         this.message = dialogDo.getMessage();

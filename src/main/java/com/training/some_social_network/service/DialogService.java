@@ -4,6 +4,7 @@ import com.training.some_social_network.dao.DialogDo;
 import com.training.some_social_network.dao.mappers.DialogMapper;
 import com.training.some_social_network.dto.DialogDto;
 import com.training.some_social_network.exceptions.NotValidDataException;
+import com.training.some_social_network.redis.RedisDialogRepository;
 import com.training.some_social_network.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class DialogService {
 
     private final DialogMapper dialogMapper;
+    private final RedisDialogRepository redisDialogRepository;
 
     @Transactional
     public void addDialog(String userId, DialogDto dialogDto) {

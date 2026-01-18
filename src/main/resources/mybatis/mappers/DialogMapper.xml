@@ -25,5 +25,6 @@
         SELECT id, user_from_id, user_to_id, message
         FROM dialogs
         WHERE shard_key = #{shardKey}
+        ORDER BY created_at DESC
     </select>
 </mapper>

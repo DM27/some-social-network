@@ -5,7 +5,7 @@ import com.training.some_social_network.dao.mappers.PostMapper;
 import com.training.some_social_network.dao.mappers.UserMapper;
 import com.training.some_social_network.dto.PostDto;
 import com.training.some_social_network.exceptions.NotValidDataException;
-import com.training.some_social_network.redis.RedisCacheService;
+import com.training.some_social_network.redis.RedisFeedService;
 import com.training.some_social_network.websocket.WebSocketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class FeedService {
 
     private final PostMapper postMapper;
     private final UserMapper userMapper;
-    private final RedisCacheService redisCacheService;
+    private final RedisFeedService redisFeedService;
     private final WebSocketService webSocketService;
 
     public List<UUID> getUserFeed(UUID userId, int offset, int limit) {
@@ -35,7 +35,7 @@ public class FeedService {
         NotValidDataException.throwIf(userId == null, "Невалидные данные");
 
         initFeedIfNeeded(userId);
-        return redisCacheService.getUserFeed(userId, offset, limit);
+        return redisFeedService.getUserFeed(userId, offset, limit);
     }
 
     public void addToFeed(UUID postId, UUID authorId) {
@@ -51,7 +51,7 @@ public class FeedService {
                 continue;
             }
             if (initFeedIfNeeded(friend)) {
-                redisCacheService.addToFeed(postId, friend);
+                redisFeedService.addToFeed(postId, friend);
             }
             notifyUser(postId, friend);
         }
@@ -64,7 +64,7 @@ public class FeedService {
         List<UUID> friendIds = userMapper.findFriends(authorId);
         for (UUID friend : friendIds) {
             if (initFeedIfNeeded(friend)) {
-                redisCacheService.removeFromFeed(postId, friend);
+                redisFeedService.removeFromFeed(postId, friend);
             }
         }
     }
@@ -81,14 +81,14 @@ public class FeedService {
      * @return true - if the cache existed, false - if initialized now
      */
     private boolean initFeedIfNeeded(UUID userId) {
-        if (redisCacheService.isFeedExisted(userId)) {
+        if (redisFeedService.isFeedExisted(userId)) {
             return true;
         }
         // bad practice, but it's suitable for a mock project
         synchronized (userId.toString().intern()) {
-            if (!redisCacheService.isFeedExisted(userId)) {
+            if (!redisFeedService.isFeedExisted(userId)) {
                 List<UUID> userFeed = postMapper.getUserFeed(userId, FEED_MAX_SIZE);
-                redisCacheService.addToFeed(userId, userFeed);
+                redisFeedService.addToFeed(userId, userFeed);
             }
             return false;
         }

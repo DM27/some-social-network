@@ -6,14 +6,14 @@ services:
     networks:
       - grafana-influxdb-network
     volumes:
-      - ./other/jmeter/influxdb/influx_init.iql:/docker-entrypoint-initdb.d/influx_init.iql
+      - ./influxdb/influx_init.iql:/docker-entrypoint-initdb.d/influx_init.iql
 
   grafana:
     image: grafana/grafana:12.1
     depends_on:
       - influxdb
     volumes:
-      - ./other/jmeter/grafana/provisioning/:/etc/grafana/provisioning/
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
     ports:
       - "3000:3000"
     env_file:

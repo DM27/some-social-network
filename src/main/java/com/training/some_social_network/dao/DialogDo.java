@@ -13,6 +13,9 @@ public class DialogDo {
     private UUID userFromId;
     private UUID userToId;
     private String message;
+    /**
+     * Used only in Citus homework
+     */
     private String shardKey;
 }
 

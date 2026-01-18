@@ -12,28 +12,28 @@ import java.util.UUID;
  */
 @Service
 @RequiredArgsConstructor
-public class RedisCacheService {
+public class RedisFeedService {
 
-    private final RedisPostRepository redisPostRepository;
+    private final RedisFeedRepository redisFeedRepository;
 
     public List<UUID> getUserFeed(UUID userId, int offset, int limit) {
-        return redisPostRepository.getAllPostIds(userId, offset, offset + limit - 1);
+        return redisFeedRepository.getAllPostIds(userId, offset, offset + limit - 1);
     }
 
     public void addToFeed(UUID postId, UUID userId) {
-        redisPostRepository.add(userId, postId);
-        redisPostRepository.trim(userId, FeedService.FEED_MAX_SIZE);
+        redisFeedRepository.add(userId, postId);
+        redisFeedRepository.trim(userId, FeedService.FEED_MAX_SIZE);
     }
 
     public void removeFromFeed(UUID postId, UUID userId) {
-        redisPostRepository.remove(userId, postId);
+        redisFeedRepository.remove(userId, postId);
     }
 
     public boolean isFeedExisted(UUID userId) {
-        return redisPostRepository.isFeedExisted(userId);
+        return redisFeedRepository.isFeedExisted(userId);
     }
 
     public void addToFeed(UUID userId, List<UUID> userFeed) {
-        redisPostRepository.addAll(userId, userFeed);
+        redisFeedRepository.addAll(userId, userFeed);
     }
 }
