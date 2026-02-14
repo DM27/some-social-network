@@ -1,1131 +1,1135 @@
 {
-	"info": {
-		"_postman_id": "b2fcd951-feca-43b1-8076-5638d62e611f",
-		"name": "Otus Melnichenko",
-		"description": "# 🚀 Get started here\n\nSpecification : [https://github.com/OtusTeam/highload/blob/master/homework/openapi.json](https://github.com/OtusTeam/highload/blob/master/homework/openapi.json)\n\n- /login (nominal authorization, not used in project)\n    \n- /user/register\n    \n- /user/get/{id}",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29079413"
-	},
-	"item": [
-		{
-			"name": "post",
-			"item": [
-				{
-					"name": "/post/feed",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJjYzVkYzc4My01ZWE5LTQwMmMtOTM4My04ZDgwMzM4ZjQ5ZDMiLCJpYXQiOjE3NjU1MDI3NjMsImV4cCI6MTc2NTcxODc2M30.6GF_d7M7Iy9veS3pC6PDnu8_urjwyFSRkKgdO2jWY2OgQc2krREf_8Ve1J0GJwfdUKWRCeSoacfnPKdHX-s5Eg",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/api/v1/post/feed?offset=5&limit=200",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"post",
-								"feed"
-							],
-							"query": [
-								{
-									"key": "offset",
-									"value": "5"
-								},
-								{
-									"key": "limit",
-									"value": "200"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/post/get/:id",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/api/v1/post/get/17919f91-6b0f-4778-9b23-03c1d96f7caf",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"post",
-								"get",
-								"17919f91-6b0f-4778-9b23-03c1d96f7caf"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/post/delete/:id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjU0MTI5MzEsImV4cCI6MTc2NTYyODkzMX0.lvyaRwQLDXNbmZfMZqgRDZbQdaFFG9peRrBCP0ZvW4pAYc-DxOH2_NYRIaxfrCF4rcZjcyhOxqtr7UZ_1685BA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/api/v1/post/delete/1435344f-35d9-4177-b493-23bba842c85e",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"post",
-								"delete",
-								"1435344f-35d9-4177-b493-23bba842c85e"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/post/update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjU0MTI5MzEsImV4cCI6MTc2NTYyODkzMX0.lvyaRwQLDXNbmZfMZqgRDZbQdaFFG9peRrBCP0ZvW4pAYc-DxOH2_NYRIaxfrCF4rcZjcyhOxqtr7UZ_1685BA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": \"1435344f-35d9-4177-b493-23bba842c85e\",\n  \"text\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus mauris ultrices eros in cursus turpis massa 222.\"\n}",
-							"options": {
-								"raw": {
-									"headerFamily": "json",
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1/post/update",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"post",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/post/create",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjgyNjE0NTAsImV4cCI6MTc4OTg2MTQ1MH0.b_SAOb9gpxJ8HpqPQKs91qjXTOct0bECJjHhe7SEQypxByN8oSRAiL8zPITJE-VABBBRxPT6iEhrjV3clo9j6Q",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"text\": \"Lorem 3 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus mauris ultrices eros in cursus turpis massa.\"\n}",
-							"options": {
-								"raw": {
-									"headerFamily": "json",
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1/post/create",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"post",
-								"create"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "user",
-			"item": [
-				{
-					"name": "Get user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJjMzk0ZjYzZi1kMWE0LTRkM2EtODkzNy0zZDNjYmQxNjAxNjMiLCJpYXQiOjE3NjI4MjgwODUsImV4cCI6MTc2MzA0NDA4NX0.BNSx_I3MH-WcFCS18SGaK-UU1yX6I_rYWSmTWtm6DYWFn20sIgaQa2vDU2n2-2jCBSxoD3SdIbw69gt9aC5Vmg",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/api/v1/user/get/bf788d81-93cf-47f7-ad4a-4a2caddec99c",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"user",
-								"get",
-								"bf788d81-93cf-47f7-ad4a-4a2caddec99c"
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "Search",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJjMzk0ZjYzZi1kMWE0LTRkM2EtODkzNy0zZDNjYmQxNjAxNjMiLCJpYXQiOjE3NjI4MjgwODUsImV4cCI6MTc2MzA0NDA4NX0.BNSx_I3MH-WcFCS18SGaK-UU1yX6I_rYWSmTWtm6DYWFn20sIgaQa2vDU2n2-2jCBSxoD3SdIbw69gt9aC5Vmg",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/api/v1/user/search?first_name=А&last_name=А",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"user",
-								"search"
-							],
-							"query": [
-								{
-									"key": "first_name",
-									"value": "А"
-								},
-								{
-									"key": "last_name",
-									"value": "А"
-								}
-							]
-						},
-						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "Register",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJjMzk0ZjYzZi1kMWE0LTRkM2EtODkzNy0zZDNjYmQxNjAxNjMiLCJpYXQiOjE3NjI4MjgwODUsImV4cCI6MTc2MzA0NDA4NX0.BNSx_I3MH-WcFCS18SGaK-UU1yX6I_rYWSmTWtm6DYWFn20sIgaQa2vDU2n2-2jCBSxoD3SdIbw69gt9aC5Vmg",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"Ivan2\",\n    \"second_name\": \"Ivanov\",\n    \"birthdate\": \"2000-01-01\",\n    \"gender\": 1,\n    \"biography\": \"Nothing interesting\",\n    \"city\": \"Moscow\",\n    \"password\": \"very hard to break\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1/user/register",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"user",
-								"register"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
-					"name": "Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": \"5dfbdef9-6cfa-4328-b788-86448d20a13c\",\n    \"password\": \"very hard to break\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1/login",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"login"
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "friend",
-			"item": [
-				{
-					"name": "/friend/delete/:user_id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjU0MTI5MzEsImV4cCI6MTc2NTYyODkzMX0.lvyaRwQLDXNbmZfMZqgRDZbQdaFFG9peRrBCP0ZvW4pAYc-DxOH2_NYRIaxfrCF4rcZjcyhOxqtr7UZ_1685BA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/api/v1/friend/delete/5dfbdef9-6cfa-4328-b788-86448d20a13c",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"friend",
-								"delete",
-								"5dfbdef9-6cfa-4328-b788-86448d20a13c"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/friend/set/:user_id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjU0MTI5MzEsImV4cCI6MTc2NTYyODkzMX0.lvyaRwQLDXNbmZfMZqgRDZbQdaFFG9peRrBCP0ZvW4pAYc-DxOH2_NYRIaxfrCF4rcZjcyhOxqtr7UZ_1685BA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/api/v1/friend/set/5dfbdef9-6cfa-4328-b788-86448d20a13c",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"friend",
-								"set",
-								"5dfbdef9-6cfa-4328-b788-86448d20a13c"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "dialog",
-			"item": [
-				{
-					"name": "/dialog/:user_id/list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiI5Yjk0NDA5Ny0xZGI3LTQ5ZGUtOGQxZC1lYmM4MGM3M2Y2MzIiLCJpYXQiOjE3Njc1OTE1MzMsImV4cCI6MTc2NzgwNzUzM30.kgbnqF23uJWmmGfQ2-IehLZSFaM5X-Bi8CynT9sWk18vXniN1TsjoV_1iYf3JWHWUBIbzgQk_U79sXWFpSJG4Q",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "localhost:8080/api/v1/dialog/38c655cc-de75-4d6f-a52f-8dbb72897c4f/list",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"dialog",
-								"38c655cc-de75-4d6f-a52f-8dbb72897c4f",
-								"list"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Диалог между двумя пользователями",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/list",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"list"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "[\n  {\n    \"from\": \"string\",\n    \"to\": \"string\",\n    \"text\": \"Привет, как дела?\"\n  },\n  {\n    \"from\": \"string\",\n    \"to\": \"string\",\n    \"text\": \"Привет, как дела?\"\n  }\n]"
-						},
-						{
-							"name": "Невалидные данные ввода",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/list",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"list"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "text",
-							"header": [],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Неавторизованный доступ",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/list",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"list"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "text",
-							"header": [],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Ошибка сервера",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/list",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"list"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Retry-After",
-									"value": "8302",
-									"description": {
-										"content": "Время, через которое еще раз нужно сделать запрос",
-										"type": "text/plain"
-									}
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"request_id\": \"string\",\n  \"code\": 8387\n}"
-						},
-						{
-							"name": "Ошибка сервера",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/list",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"list"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "Service Unavailable",
-							"code": 503,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Retry-After",
-									"value": "8302",
-									"description": {
-										"content": "Время, через которое еще раз нужно сделать запрос",
-										"type": "text/plain"
-									}
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"request_id\": \"string\",\n  \"code\": 8387\n}"
-						}
-					]
-				},
-				{
-					"name": "/dialog/:user_id/send",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiI5Yjk0NDA5Ny0xZGI3LTQ5ZGUtOGQxZC1lYmM4MGM3M2Y2MzIiLCJpYXQiOjE3Njc1OTE1MzMsImV4cCI6MTc2NzgwNzUzM30.kgbnqF23uJWmmGfQ2-IehLZSFaM5X-Bi8CynT9sWk18vXniN1TsjoV_1iYf3JWHWUBIbzgQk_U79sXWFpSJG4Q",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
-							"options": {
-								"raw": {
-									"headerFamily": "json",
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1/dialog/38c655cc-de75-4d6f-a52f-8dbb72897c4f/send",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"dialog",
-								"38c655cc-de75-4d6f-a52f-8dbb72897c4f",
-								"send"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Успешно отправлено сообщение",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
-									"options": {
-										"raw": {
-											"headerFamily": "json",
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/send",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"send"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "text",
-							"header": [],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Невалидные данные ввода",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
-									"options": {
-										"raw": {
-											"headerFamily": "json",
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/send",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"send"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "text",
-							"header": [],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Неавторизованный доступ",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
-									"options": {
-										"raw": {
-											"headerFamily": "json",
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/send",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"send"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "Unauthorized",
-							"code": 401,
-							"_postman_previewlanguage": "text",
-							"header": [],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Ошибка сервера",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
-									"options": {
-										"raw": {
-											"headerFamily": "json",
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/send",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"send"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Retry-After",
-									"value": "8302",
-									"description": {
-										"content": "Время, через которое еще раз нужно сделать запрос",
-										"type": "text/plain"
-									}
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"request_id\": \"string\",\n  \"code\": 8387\n}"
-						},
-						{
-							"name": "Ошибка сервера",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer <token>",
-										"description": "Added as a part of security scheme: bearer"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
-									"options": {
-										"raw": {
-											"headerFamily": "json",
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/dialog/:user_id/send",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dialog",
-										":user_id",
-										"send"
-									],
-									"variable": [
-										{
-											"key": "user_id"
-										}
-									]
-								}
-							},
-							"status": "Service Unavailable",
-							"code": 503,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Retry-After",
-									"value": "8302",
-									"description": {
-										"content": "Время, через которое еще раз нужно сделать запрос",
-										"type": "text/plain"
-									}
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"message\": \"string\",\n  \"request_id\": \"string\",\n  \"code\": 8387\n}"
-						}
-					]
-				}
-			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "id",
-			"value": "1"
-		},
-		{
-			"key": "base_url",
-			"value": "https://template.postman-echo.com"
-		}
-	]
+  "info": {
+    "_postman_id": "b2fcd951-feca-43b1-8076-5638d62e611f",
+    "name": "Otus Melnichenko",
+    "description": "# 🚀 Get started here\n\nSpecification : [https://github.com/OtusTeam/highload/blob/master/homework/openapi.json](https://github.com/OtusTeam/highload/blob/master/homework/openapi.json)\n\n- /login (nominal authorization, not used in project)\n    \n- /user/register\n    \n- /user/get/{id}",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29079413"
+  },
+  "item": [
+    {
+      "name": "post",
+      "item": [
+        {
+          "name": "/post/feed",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJjYzVkYzc4My01ZWE5LTQwMmMtOTM4My04ZDgwMzM4ZjQ5ZDMiLCJpYXQiOjE3NjU1MDI3NjMsImV4cCI6MTc2NTcxODc2M30.6GF_d7M7Iy9veS3pC6PDnu8_urjwyFSRkKgdO2jWY2OgQc2krREf_8Ve1J0GJwfdUKWRCeSoacfnPKdHX-s5Eg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/v2/post/feed?offset=5&limit=200",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "post",
+                "feed"
+              ],
+              "query": [
+                {
+                  "key": "offset",
+                  "value": "5"
+                },
+                {
+                  "key": "limit",
+                  "value": "200"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/post/get/:id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/v2/post/get/17919f91-6b0f-4778-9b23-03c1d96f7caf",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "post",
+                "get",
+                "17919f91-6b0f-4778-9b23-03c1d96f7caf"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/post/delete/:id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjU0MTI5MzEsImV4cCI6MTc2NTYyODkzMX0.lvyaRwQLDXNbmZfMZqgRDZbQdaFFG9peRrBCP0ZvW4pAYc-DxOH2_NYRIaxfrCF4rcZjcyhOxqtr7UZ_1685BA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/v2/post/delete/1435344f-35d9-4177-b493-23bba842c85e",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "post",
+                "delete",
+                "1435344f-35d9-4177-b493-23bba842c85e"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/post/update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjU0MTI5MzEsImV4cCI6MTc2NTYyODkzMX0.lvyaRwQLDXNbmZfMZqgRDZbQdaFFG9peRrBCP0ZvW4pAYc-DxOH2_NYRIaxfrCF4rcZjcyhOxqtr7UZ_1685BA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"1435344f-35d9-4177-b493-23bba842c85e\",\n  \"text\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus mauris ultrices eros in cursus turpis massa 222.\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/v2/post/update",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "post",
+                "update"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/post/create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjgyNjE0NTAsImV4cCI6MTc4OTg2MTQ1MH0.b_SAOb9gpxJ8HpqPQKs91qjXTOct0bECJjHhe7SEQypxByN8oSRAiL8zPITJE-VABBBRxPT6iEhrjV3clo9j6Q",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Lorem 3 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus mauris ultrices eros in cursus turpis massa.\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/v2/post/create",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "post",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "Get user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJjMzk0ZjYzZi1kMWE0LTRkM2EtODkzNy0zZDNjYmQxNjAxNjMiLCJpYXQiOjE3NjI4MjgwODUsImV4cCI6MTc2MzA0NDA4NX0.BNSx_I3MH-WcFCS18SGaK-UU1yX6I_rYWSmTWtm6DYWFn20sIgaQa2vDU2n2-2jCBSxoD3SdIbw69gt9aC5Vmg",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/v2/user/get/bf788d81-93cf-47f7-ad4a-4a2caddec99c",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "user",
+                "get",
+                "bf788d81-93cf-47f7-ad4a-4a2caddec99c"
+              ]
+            },
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJjMzk0ZjYzZi1kMWE0LTRkM2EtODkzNy0zZDNjYmQxNjAxNjMiLCJpYXQiOjE3NjI4MjgwODUsImV4cCI6MTc2MzA0NDA4NX0.BNSx_I3MH-WcFCS18SGaK-UU1yX6I_rYWSmTWtm6DYWFn20sIgaQa2vDU2n2-2jCBSxoD3SdIbw69gt9aC5Vmg",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/v2/user/search?first_name=А&last_name=А",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "user",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "first_name",
+                  "value": "А"
+                },
+                {
+                  "key": "last_name",
+                  "value": "А"
+                }
+              ]
+            },
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Successful POST request\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJjMzk0ZjYzZi1kMWE0LTRkM2EtODkzNy0zZDNjYmQxNjAxNjMiLCJpYXQiOjE3NjI4MjgwODUsImV4cCI6MTc2MzA0NDA4NX0.BNSx_I3MH-WcFCS18SGaK-UU1yX6I_rYWSmTWtm6DYWFn20sIgaQa2vDU2n2-2jCBSxoD3SdIbw69gt9aC5Vmg",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Ivan2\",\n    \"second_name\": \"Ivanov\",\n    \"birthdate\": \"2000-01-01\",\n    \"gender\": 1,\n    \"biography\": \"Nothing interesting\",\n    \"city\": \"Moscow\",\n    \"password\": \"very hard to break\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/v2/user/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "user",
+                "register"
+              ]
+            },
+            "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Successful POST request\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"5dfbdef9-6cfa-4328-b788-86448d20a13c\",\n    \"password\": \"very hard to break\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/v2/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "login"
+              ]
+            },
+            "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "friend",
+      "item": [
+        {
+          "name": "/friend/delete/:user_id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjU0MTI5MzEsImV4cCI6MTc2NTYyODkzMX0.lvyaRwQLDXNbmZfMZqgRDZbQdaFFG9peRrBCP0ZvW4pAYc-DxOH2_NYRIaxfrCF4rcZjcyhOxqtr7UZ_1685BA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/v2/friend/delete/5dfbdef9-6cfa-4328-b788-86448d20a13c",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "friend",
+                "delete",
+                "5dfbdef9-6cfa-4328-b788-86448d20a13c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/friend/set/:user_id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjU0MTI5MzEsImV4cCI6MTc2NTYyODkzMX0.lvyaRwQLDXNbmZfMZqgRDZbQdaFFG9peRrBCP0ZvW4pAYc-DxOH2_NYRIaxfrCF4rcZjcyhOxqtr7UZ_1685BA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/v2/friend/set/5dfbdef9-6cfa-4328-b788-86448d20a13c",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "friend",
+                "set",
+                "5dfbdef9-6cfa-4328-b788-86448d20a13c"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "item": [
+        {
+          "name": "/dialog/:user_id/list",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjgyNjE0NTAsImV4cCI6MTc4OTg2MTQ1MH0.b_SAOb9gpxJ8HpqPQKs91qjXTOct0bECJjHhe7SEQypxByN8oSRAiL8zPITJE-VABBBRxPT6iEhrjV3clo9j6Q",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/v2/dialog/38c655cc-de75-4d6f-a52f-8dbb72897c4f/list",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "dialog",
+                "38c655cc-de75-4d6f-a52f-8dbb72897c4f",
+                "list"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Диалог между двумя пользователями",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "list"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"from\": \"string\",\n    \"to\": \"string\",\n    \"text\": \"Привет, как дела?\"\n  },\n  {\n    \"from\": \"string\",\n    \"to\": \"string\",\n    \"text\": \"Привет, как дела?\"\n  }\n]"
+            },
+            {
+              "name": "Невалидные данные ввода",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "list"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Неавторизованный доступ",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "list"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Ошибка сервера",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "list"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Время, через которое еще раз нужно сделать запрос",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "8302"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"request_id\": \"string\",\n  \"code\": 8387\n}"
+            },
+            {
+              "name": "Ошибка сервера",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/list",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "list"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Время, через которое еще раз нужно сделать запрос",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "8302"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"request_id\": \"string\",\n  \"code\": 8387\n}"
+            }
+          ]
+        },
+        {
+          "name": "/dialog/:user_id/send",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJzdWIiOiJiZjc4OGQ4MS05M2NmLTQ3ZjctYWQ0YS00YTJjYWRkZWM5OWMiLCJpYXQiOjE3NjgyNjE0NTAsImV4cCI6MTc4OTg2MTQ1MH0.b_SAOb9gpxJ8HpqPQKs91qjXTOct0bECJjHhe7SEQypxByN8oSRAiL8zPITJE-VABBBRxPT6iEhrjV3clo9j6Q",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Привет, как дела 2?\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/v2/dialog/38c655cc-de75-4d6f-a52f-8dbb72897c4f/send",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v2",
+                "dialog",
+                "38c655cc-de75-4d6f-a52f-8dbb72897c4f",
+                "send"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Успешно отправлено сообщение",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/send",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "send"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Невалидные данные ввода",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/send",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "send"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Неавторизованный доступ",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/send",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "send"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Ошибка сервера",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/send",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "send"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Время, через которое еще раз нужно сделать запрос",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "8302"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"request_id\": \"string\",\n  \"code\": 8387\n}"
+            },
+            {
+              "name": "Ошибка сервера",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"Привет, как дела?\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dialog/:user_id/send",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dialog",
+                    ":user_id",
+                    "send"
+                  ],
+                  "variable": [
+                    {
+                      "key": "user_id"
+                    }
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Время, через которое еще раз нужно сделать запрос",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "8302"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"string\",\n  \"request_id\": \"string\",\n  \"code\": 8387\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "id",
+      "value": "1"
+    },
+    {
+      "key": "base_url",
+      "value": "https://template.postman-echo.com"
+    }
+  ]
 }

@@ -7,7 +7,7 @@ Run command:
 ```shell
 docker compose -f ./docker/docker-compose.yaml up -d
 ```
-Api will be available at http://localhost:8080/api/v1
+Api will be available at http://localhost:8080/api/v2
 
 ## Endpoints
 Specification : https://github.com/OtusTeam/highload/blob/master/homework/openapi.json

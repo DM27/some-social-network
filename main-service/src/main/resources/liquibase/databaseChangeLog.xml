@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="meldim" id="20251110_init_user_tables">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20251110_init_user_tables.sql"/>
+    </changeSet>
+
+    <changeSet author="meldim" id="20251126_create_user_name_index">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20251126_create_user_name_index.sql"/>
+    </changeSet>
+
+    <changeSet author="meldim" id="20251206_init_user_friends_table">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20251206_init_user_friends_table.sql"/>
+    </changeSet>
+
+    <changeSet author="meldim" id="20251206_init_user_posts_table">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20251206_init_user_posts_table.sql"/>
+    </changeSet>
+
+    <changeSet author="meldim" id="20260112_init_table_data">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20260112_init_table_data.sql"/>
+    </changeSet>
+
+</databaseChangeLog>

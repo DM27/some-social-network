@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="meldim" id="20251229_init_user_dialog_table">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20251229_init_user_dialog_table.sql"/>
+    </changeSet>
+
+    <changeSet author="meldim" id="20260112_init_table_data">
+        <sqlFile dbms="postgresql" encoding="utf8" endDelimiter="\nGO"
+                 relativeToChangelogFile="true" splitStatements="true" stripComments="false"
+                 path="20260112_init_table_data.sql"/>
+    </changeSet>
+
+</databaseChangeLog>

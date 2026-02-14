@@ -1,0 +1,2 @@
+INSERT INTO dialogs (id, user_from_id, user_to_id, message, created_at, shard_key)
+VALUES('497b2d37-1fc1-47f8-96eb-339968c9ce85'::uuid, 'bf788d81-93cf-47f7-ad4a-4a2caddec99c'::uuid, '5dfbdef9-6cfa-4328-b788-86448d20a13c'::uuid, 'Привет, как дела?', '2025-12-29 03:47:49.225', -972899793) ON CONFLICT DO NOTHING;

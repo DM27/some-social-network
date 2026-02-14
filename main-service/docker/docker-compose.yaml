@@ -1,14 +1,14 @@
-name: otus_hw
+name: otus_hw_main
 
 services:
   main-app:
     container_name: main-service
     build:
       # from project root
-      context: ../
+      context: ../../
       dockerfile: ./main-service/docker/Dockerfile
     image: main-service-app:0.7.1
-    environment: &MAIN-AUTH
+    environment: &AUTH
       POSTGRES_SERVER: postgres-db
       POSTGRES_DB: bd_social
       POSTGRES_DB_SCHEMA: bd_social
@@ -26,64 +26,22 @@ services:
         condition: service_started
       rabbit-mq:
         condition: service_started
-
-  chat-service:
-    container_name: chat-service
-    build:
-      # from project root
-      context: ../
-      dockerfile: ./chat-service/docker/Dockerfile
-    image: chat-service-app:0.7.1
-    environment: &CHAT-AUTH
-      POSTGRES_SERVER: chat-postgres-db
-      POSTGRES_DB: bd_dialogs
-      POSTGRES_DB_SCHEMA: bd_dialogs
-      POSTGRES_USER: bd_admin
-      POSTGRES_PASSWORD: bd_pass
-      POSTGRES_PORT: 5432
-    restart: unless-stopped
-    ports:
-      - "8082:8080"
-    networks:
-      - social-network
-    depends_on:
-      chat-postgres-db:
-        condition: service_healthy
-
   postgres-db:
     container_name: postgres-db
     image: postgres:15-alpine
-    environment: *MAIN-AUTH
+    environment: *AUTH
     restart: unless-stopped
     ports:
       - "5432:5432"
     networks:
       - social-network
     volumes:
-      - ../main-service/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
-      interval: 10s
-      timeout: 5s
+      interval: 3s
+      timeout: 3s
       retries: 3
-
-  chat-postgres-db:
-    container_name: chat-postgres-db
-    image: postgres:15-alpine
-    environment: *CHAT-AUTH
-    restart: unless-stopped
-    ports:
-      - "5433:5432"
-    networks:
-      - social-network
-    volumes:
-      - ../chat-service/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-
   redis-cache:
     container_name: redis-cache
     image: redis:8-alpine
@@ -94,7 +52,6 @@ services:
     networks:
       - social-network
     restart: unless-stopped
-
   rabbit-mq:
     container_name: rabbit-mq
     image: rabbitmq:4-management-alpine
