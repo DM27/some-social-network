@@ -15,5 +15,6 @@ RUN mv ./main-service/target/*.jar ./main-service/target/main-service.jar
 FROM amazoncorretto:17-alpine
 WORKDIR /app
 EXPOSE 8080
+EXPOSE 5005
 COPY --from=maven_builder /app/main-service/target/main-service.jar ./
-ENTRYPOINT ["java", "-jar", "main-service.jar"]
+ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-jar", "main-service.jar"]

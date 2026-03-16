@@ -15,5 +15,6 @@ RUN mv ./chat-service/target/*.jar ./chat-service/target/chat-service.jar
 FROM amazoncorretto:17-alpine
 WORKDIR /app
 EXPOSE 8080
+EXPOSE 5005
 COPY --from=maven_builder /app/chat-service/target/chat-service.jar ./
-ENTRYPOINT ["java", "-jar", "chat-service.jar"]
+ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-jar", "chat-service.jar"]

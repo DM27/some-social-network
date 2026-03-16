@@ -4,7 +4,7 @@ services:
   social-app:
     container_name: "${COMPOSE_PROJECT_NAME}_social_app"
     build:
-      context: ../
+      context: ../..
       dockerfile: ./docker/Dockerfile
     image: some-social-app:0.0.5
     environment: &AUTH

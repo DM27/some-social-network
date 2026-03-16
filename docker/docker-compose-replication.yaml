@@ -1,0 +1,65 @@
+name: otus_hw_replication
+
+services:
+  chat-postgres-db:
+    container_name: chat-postgres-db
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_SERVER: chat-postgres-db
+      POSTGRES_DB: bd_dialogs
+      POSTGRES_DB_SCHEMA: bd_dialogs
+      POSTGRES_USER: bd_admin
+      POSTGRES_PASSWORD: bd_pass
+      POSTGRES_PORT: 5432
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    networks:
+      - social-network
+    volumes:
+      - ../chat-service/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - d:/volumes/master/:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  chat-postgres-db-slave1:
+    container_name: chat-postgres-db-slave1
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: bd_dialogs
+      POSTGRES_DB_SCHEMA: bd_dialogs
+      POSTGRES_USER: bd_admin
+      POSTGRES_PASSWORD: bd_pass
+      POSTGRES_PORT: 5432
+    restart: unless-stopped
+    ports:
+      - "15433:5432"
+    networks:
+      - social-network
+    volumes:
+      - d:/volumes/pgslave1/:/var/lib/postgresql/data
+
+  chat-postgres-db-slave2:
+    container_name: chat-postgres-db-slave2
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: bd_dialogs
+      POSTGRES_DB_SCHEMA: bd_dialogs
+      POSTGRES_USER: bd_admin
+      POSTGRES_PASSWORD: bd_pass
+      POSTGRES_PORT: 5432
+    restart: unless-stopped
+    ports:
+      - "25433:5432"
+    networks:
+      - social-network
+    volumes:
+      - d:/volumes/pgslave2/:/var/lib/postgresql/data
+
+networks:
+  social-network:
+    driver: bridge
+    external: true
