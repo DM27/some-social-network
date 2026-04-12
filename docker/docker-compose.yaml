@@ -70,6 +70,23 @@ services:
       chat-service1:
         condition: service_started
 
+  counter-service:
+    container_name: counter-service
+    build:
+      # from project root
+      context: ../
+      dockerfile: ./counter-service/docker/Dockerfile
+    image: counter-service-app:${APP_VERSION}
+    restart: unless-stopped
+    ports:
+      - "8084:8080"
+      - "5007:5005"
+    networks:
+      - social-network
+    depends_on:
+      redis-cache:
+        condition: service_started
+
   postgres-db:
     container_name: postgres-db
     image: postgres:15-alpine

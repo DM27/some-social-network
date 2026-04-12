@@ -1,5 +1,8 @@
 name: otus_hw_replication
 
+# Replicas must be raised manually according to the manual:
+# https://github.com/OtusTeam/highload/blob/master/lessons/02/05/live/guide.md
+
 services:
   chat-postgres-db:
     container_name: chat-postgres-db

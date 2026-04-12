@@ -20,6 +20,7 @@
     <modules>
         <module>main-service</module>
         <module>chat-service</module>
+        <module>counter-service</module>
         <module>libs/postgres-spring-boot-starter</module>
     </modules>
 

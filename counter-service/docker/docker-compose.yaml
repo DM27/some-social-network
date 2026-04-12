@@ -1,0 +1,36 @@
+name: otus_hw_counter
+
+services:
+  counter-app:
+    container_name: counter-service
+    build:
+      # from project root
+      context: ../../
+      dockerfile: ./counter-service/docker/Dockerfile
+    image: counter-service-app:0.7.1
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "5007:5005"
+    networks:
+      - social-network
+    depends_on:
+      redis-cache:
+        condition: service_started
+  redis-cache:
+    container_name: redis-cache
+    image: redis:8-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - social-network
+    restart: unless-stopped
+
+networks:
+  social-network:
+    driver: bridge
+
+volumes:
+  redis-data:
