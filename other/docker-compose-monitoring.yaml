@@ -1,0 +1,95 @@
+name: otus_chat_monitoring
+
+x-postgres-auth: &POSTGRES-AUTH
+  POSTGRES_USER: zabbix
+  POSTGRES_PASSWORD: zabbix
+  POSTGRES_DB: zabbix
+
+services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:12.1
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../other/grafana:/etc/grafana/provisioning/datasources
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    networks:
+      - social-network
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v2.44.0
+    user: root
+    volumes:
+      - ../other/prometheus/config:/etc/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus-config.yaml
+      - --log.level=debug
+    ports:
+      - "9090:9090"
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
+    networks:
+      - social-network
+
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:6.0.28-alpine
+    container_name: zabbix-server
+    restart: unless-stopped
+    #    ports:
+    #      - "10051:10051"
+    environment:
+      <<: *POSTGRES-AUTH
+      ZBX_JAVAGATEWAY_ENABLE: false
+      ZBX_ENABLE_SNMP_TRAPS: false
+    networks:
+      - social-network
+    depends_on:
+      postgres-server:
+        condition: service_healthy
+
+  zabbix-web-nginx-pgsql:
+    container_name: zabbix-web
+    image: zabbix/zabbix-web-nginx-pgsql:6.0.28-alpine
+    restart: unless-stopped
+    ports:
+      - "9191:8080"
+    environment:
+      <<: *POSTGRES-AUTH
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER_PORT: 10051
+      ZBX_SERVER_NAME: My Company Name
+      ENABLE_WEB_ACCESS_LOG: true
+      ZBX_GUI_WARNING_MSG: Zabbix Maintenance Mode
+    networks:
+      - social-network
+    depends_on:
+      postgres-server:
+        condition: service_healthy
+      zabbix-server:
+        condition: service_started
+
+  postgres-server:
+    container_name: zabbix-db
+    image: postgres:15-alpine
+    environment:
+      <<: *POSTGRES-AUTH
+    #    ports:
+    #      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - social-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  social-network:
+    external: true
+    driver: bridge

@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Страница-1" id="MWa2wtpppLbSa3xNdeKD">
+    <mxGraphModel dx="858" dy="486" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="iLRzmaew-7wyngzWBvfb-1" parent="1" style="shape=datastore;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Redis" vertex="1">
+          <mxGeometry height="60" width="60" x="600" y="188" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-31" edge="1" parent="1" source="iLRzmaew-7wyngzWBvfb-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="iLRzmaew-7wyngzWBvfb-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-4" parent="1" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=mxgraph.basic.rect;fillColor2=none;strokeWidth=1;size=20;indent=5;labelBackgroundColor=none;labelPosition=center;align=center;" value="&lt;div&gt;Nginx&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="60" x="110" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-48" edge="1" parent="1" source="iLRzmaew-7wyngzWBvfb-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="iLRzmaew-7wyngzWBvfb-10" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="280" />
+              <mxPoint x="400" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-5" parent="1" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=mxgraph.basic.rect;fillColor2=none;strokeWidth=1;size=30;indent=5;labelPosition=center;align=center;labelBackgroundColor=none;" value="&lt;div&gt;Main service&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="130" x="230" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-47" edge="1" parent="1" source="iLRzmaew-7wyngzWBvfb-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="iLRzmaew-7wyngzWBvfb-1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-9" parent="1" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=mxgraph.basic.rect;fillColor2=none;strokeWidth=1;size=30;indent=5;labelPosition=center;align=center;labelBackgroundColor=none;" value="&lt;div&gt;Counter service&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="130" x="430" y="188" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-49" edge="1" parent="1" source="iLRzmaew-7wyngzWBvfb-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="iLRzmaew-7wyngzWBvfb-36" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-10" parent="1" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=mxgraph.basic.rect;fillColor2=none;strokeWidth=1;size=30;indent=5;labelPosition=center;align=center;labelBackgroundColor=none;" value="&lt;div&gt;Chat service&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="130" x="430" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-52" edge="1" parent="1" source="iLRzmaew-7wyngzWBvfb-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;shape=wire;dashed=1;endArrow=none;endFill=0;" target="iLRzmaew-7wyngzWBvfb-5" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="325" />
+              <mxPoint x="310" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-12" parent="1" style="shape=datastore;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="&lt;div&gt;PostgreSQL&lt;/div&gt;&lt;div&gt;replicated&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="80" x="290" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-17" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;labelBackgroundColor=none;fontColor=default;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="50" y="270" as="sourcePoint" />
+            <mxPoint x="110" y="269.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-18" connectable="0" parent="iLRzmaew-7wyngzWBvfb-17" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];labelPosition=center;verticalLabelPosition=top;labelBackgroundColor=none;" value="&lt;div&gt;Request&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.24" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-23" edge="1" parent="1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;labelBackgroundColor=none;fontColor=default;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="iLRzmaew-7wyngzWBvfb-24" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="294.5" y="240" as="sourcePoint" />
+            <mxPoint x="294.5" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-24" parent="1" style="outlineConnect=0;dashed=0;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;shape=mxgraph.aws3.queue;fillColor=#D9A741;gradientColor=none;labelPosition=center;" value="RabbitMQ" vertex="1">
+          <mxGeometry height="48" width="73.5" x="258.25" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-53" edge="1" parent="1" source="iLRzmaew-7wyngzWBvfb-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;startArrow=classic;startFill=1;" target="iLRzmaew-7wyngzWBvfb-5" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="325" />
+              <mxPoint x="270" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-27" parent="1" style="shape=datastore;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Redis" vertex="1">
+          <mxGeometry height="60" width="60" x="220" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-29" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;startArrow=none;startFill=0;" target="iLRzmaew-7wyngzWBvfb-9" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="260" />
+              <mxPoint x="400" y="218" />
+            </Array>
+            <mxPoint x="360" y="260" as="sourcePoint" />
+            <mxPoint x="444" y="217" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iLRzmaew-7wyngzWBvfb-36" parent="1" style="shape=datastore;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="&lt;div&gt;PostgreSQL&lt;/div&gt;&lt;div&gt;sharded&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="86" x="600" y="290" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

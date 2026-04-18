@@ -16,6 +16,11 @@ public class RedisCounterRepository {
     private final HashOperations<String, String, Integer> counterOperations;
     private final RedisTemplate<String, Object> redisTemplate;
 
+    public Integer get(String userId, String fromUserId) {
+        String userKey = DIALOG_COUNTER_KEY_PREFIX + userId;
+        return counterOperations.get(userKey, fromUserId);
+    }
+
     public void increment(String userId, String fromUserId) {
         String userKey = DIALOG_COUNTER_KEY_PREFIX + userId;
         counterOperations.increment(userKey, fromUserId, 1);

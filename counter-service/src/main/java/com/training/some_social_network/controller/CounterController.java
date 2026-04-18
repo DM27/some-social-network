@@ -1,8 +1,8 @@
 package com.training.some_social_network.controller;
 
+import com.training.some_social_network.service.CounterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import com.training.some_social_network.service.CounterService;
 
 import java.util.Map;
 
@@ -12,6 +12,17 @@ import java.util.Map;
 public class CounterController {
 
     private final CounterService counterService;
+
+    /**
+     * Get user counter
+     *
+     * @param userId
+     * @param fromUserId
+     */
+    @GetMapping("/{userId}/get/{fromUserId}")
+    public Integer get(@PathVariable("userId") String userId, @PathVariable("fromUserId") String fromUserId) {
+        return counterService.get(userId, fromUserId);
+    }
 
     /**
      * Increment user counter

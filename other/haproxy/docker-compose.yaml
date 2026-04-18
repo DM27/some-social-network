@@ -28,8 +28,8 @@ services:
       rabbit-mq:
         condition: service_started
 
-  chat-service:
-    container_name: chat-service
+  chat-service1:
+    container_name: chat-service1
     build:
       # from project root
       context: ../
@@ -37,7 +37,7 @@ services:
     image: chat-service-app:${APP_VERSION}
     environment: &CHAT-AUTH
       POSTGRES_SERVER: chat-postgres-db
-#      POSTGRES_REPLICA_SERVER: haproxy-chat-service
+      POSTGRES_REPLICA_SERVER: haproxy-chat-service
       POSTGRES_DB: bd_dialogs
       POSTGRES_DB_SCHEMA: bd_dialogs
       POSTGRES_USER: bd_admin
@@ -50,7 +50,24 @@ services:
     networks:
       - social-network
     depends_on:
-      chat-postgres-db:
+      haproxy-chat-service:
+        condition: service_started
+
+  chat-service2:
+    container_name: chat-service2
+    build:
+      # from project root
+      context: ../
+      dockerfile: ./chat-service/docker/Dockerfile
+    image: chat-service-app:${APP_VERSION}
+    environment: *CHAT-AUTH
+    restart: unless-stopped
+    ports:
+      - "8083:8080"
+    networks:
+      - social-network
+    depends_on:
+      chat-service1:
         condition: service_started
 
   counter-service:
@@ -130,10 +147,40 @@ services:
       - social-network
     restart: unless-stopped
 
+  nginx-chat-service:
+    container_name: nginx
+    image: nginx:1.28-alpine
+    volumes:
+      - ../other/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../other/nginx/logs:/etc/nginx/logs
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+    networks:
+      - social-network
+    depends_on:
+      chat-service1:
+        condition: service_started
+
+  haproxy-chat-service:
+    image: haproxy:3.3-alpine
+    container_name: haproxy-chat-service
+    environment:
+      PG_SLAVE1: chat-postgres-db:5432
+      PG_SLAVE2: chat-postgres-db:5432
+    volumes:
+      - "../other/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+    ports:
+      - "5434:5432"
+      - "8404:8404"
+    restart: unless-stopped
+    networks:
+      - social-network
+
 networks:
   social-network:
     driver: bridge
-    external: true
+#    external: true
 
 volumes:
   redis-data:

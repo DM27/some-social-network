@@ -35,4 +35,14 @@ public class DialogController {
     public List<DialogDto> getDialogs(@PathVariable("userId") String userId) {
         return dialogService.getUserDialogs(userId);
     }
+
+    /**
+     * Get user dialog counter
+     *
+     * @param fromUserId the user for whom we get the number of unread messages
+     */
+    @GetMapping("/get/{fromUserId}")
+    public Integer getDialogCounter(@PathVariable("fromUserId") String fromUserId) {
+        return dialogService.getDialogCounter(fromUserId);
+    }
 }

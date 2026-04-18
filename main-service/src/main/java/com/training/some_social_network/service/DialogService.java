@@ -58,4 +58,12 @@ public class DialogService {
             throw ex;
         }
     }
+
+    public Integer getDialogCounter(String fromUserId) {
+        NotValidDataException.throwIf(fromUserId == null, "Невалидные данные");
+        UUID currentUserId = SecurityHelper.getCurrentUserId().orElse(null);
+        NotValidDataException.throwIf(currentUserId == null, "Невалидные данные");
+
+        return counterServiceClient.getCounter(currentUserId.toString(), fromUserId);
+    }
 }

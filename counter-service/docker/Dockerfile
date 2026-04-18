@@ -4,9 +4,9 @@ WORKDIR /app
 COPY ./pom.xml .
 COPY ./lombok.config .
 COPY ./main-service/pom.xml ./main-service/pom.xml
-COPY ./main-service/src ./main-service/src
+#COPY ./main-service/src ./main-service/src
 COPY ./chat-service/pom.xml ./chat-service/pom.xml
-COPY ./chat-service/src ./chat-service/src
+#COPY ./chat-service/src ./chat-service/src
 COPY ./counter-service/pom.xml ./counter-service/pom.xml
 COPY ./counter-service/src ./counter-service/src
 COPY ./libs ./libs
